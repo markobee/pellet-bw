@@ -1,0 +1,36 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: curl -X POST https://www.holzpelletsdirekt.de/preisrechner.php -H "Content-Type: application/x-www-form-urlencoded"  -d 'cs_shop_pg=17&cs_shop_tank_size=0&cs_shop_zip_code=71069&cs_shop_tank_size_level=&cs_shop_tank_size_full=&cs_shop_amount=5000&cs_shop_delivery_points=1&cs_shop_min_amount=1499&cs_shop_step_from=1&cs_shop_step=2&cs_shop_order_key=4de148ba3ada6e56bd9d&cs_session_key=4de148ba3ada6e56bd9d&cs_shop_type=1&cs_ptoken=&submit1=weiter+%28Preisanzeige%29' | grep "EUR/1.000 Kg (inkl. MwSt.)"
+
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
